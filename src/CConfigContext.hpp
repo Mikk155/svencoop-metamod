@@ -23,15 +23,16 @@ class CConfigContext
 {
 public:
 
-    void MapInit();
+    void OnMapInit();
 
     bool LoadJsonFile( const std::string& filename );
 
     SectionContext* GetContext( std::string_view name );
 
+    void CreateContext( const char* name );
+
 private:
     std::vector<SectionContext> m_contexts;
-
 };
 
 inline CConfigContext g_ConfigurationContext;

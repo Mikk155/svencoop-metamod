@@ -12,6 +12,9 @@ add_executable( LimitlessPotential
     src/CConfigContext.hpp
     src/main.cpp
     src/placeholder.h
+    src/CBasePlugin.h
+
+    src/plugins/anticlip.cpp
 )
 
 target_link_libraries( LimitlessPotential nlohmann_json::nlohmann_json )

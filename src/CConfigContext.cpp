@@ -7,11 +7,26 @@
 #include "placeholder.h"
 extern CEngine* gpGlobals;
 
-void CConfigContext::MapInit()
+void CConfigContext::CreateContext( const char* name )
 {
-    // push_back( "anticlip", &CAntiClip );
-    m_contexts.push_back( SectionContext( "anticlip" ) );
+    auto it = std::find_if( m_contexts.begin(), m_contexts.end(), [&]( const auto& context )
+        { return context.Name == name; } );
 
+    if( it != m_contexts.end() )
+    {
+        std::cout << "Plugin tried to register a existent config context with name " << name << std::endl;
+        return;
+    }
+
+    SectionContext PluginContext = SectionContext( name );
+
+    std::cout << "Registered section context for " << name << std::endl;
+
+    m_contexts.push_back( std::move( PluginContext ) );
+}
+
+void CConfigContext::OnMapInit()
+{
     if( !LoadJsonFile( "../../lp_configuration.json" ) )
     {
         std::cout << "Failed to read the main config file." << std::endl;
