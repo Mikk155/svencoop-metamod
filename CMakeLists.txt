@@ -21,3 +21,6 @@ add_library( ${PROJECT_NAME} SHARED
 )
 
 target_link_libraries( ${PROJECT_NAME} PRIVATE nlohmann_json::nlohmann_json )
+
+# Testing stuff
+add_executable( TestPluginLoader test/main.cpp )

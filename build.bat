@@ -3,5 +3,5 @@ cmake --build build
 
 cd build
 cd Debug
-LimitlessPotential.exe
+TestPluginLoader.exe
 pause

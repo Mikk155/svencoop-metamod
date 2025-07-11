@@ -1,6 +1,6 @@
 #include "main.hpp"
 
-int main()
+extern "C" __declspec(dllexport) void main()
 {
     for( CBasePlugin* plugin : CBasePlugin::GetPlugins() )
     {
@@ -15,6 +15,4 @@ int main()
         if( plugin->IsActive() )
             plugin->OnMapInit();
     }
-
-    return 0;
 }
