@@ -4,6 +4,7 @@ project( LimitlessPotential )
 set( CMAKE_CXX_STANDARD 17 )
 
 add_subdirectory( src/json )
+add_subdirectory( src/fmt )
 
 include_directories(
     ${CMAKE_SOURCE_DIR}/src/metamodp/hlsdk/common
@@ -21,6 +22,7 @@ add_library( ${PROJECT_NAME} SHARED
 )
 
 target_link_libraries( ${PROJECT_NAME} PRIVATE nlohmann_json::nlohmann_json )
+target_link_libraries( ${PROJECT_NAME} PRIVATE fmt )
 
 # Testing stuff
 add_executable( TestPluginLoader test/main.cpp )

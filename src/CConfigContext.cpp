@@ -31,15 +31,12 @@ void CConfigContext::OnMapInit()
     }
 
 #if 0
-    std::ostringstream oss;
-
-    oss << "maps/" << STRING( gpGlobals->mapname ) << ".json";
-
-    if( auto mapname = oss.str(); LoadJsonFile( mapname ) )
+    if( std::string mapname = fmt::format( "maps/{}.json", STRING( gpGlobals->mapname ) ); LoadJsonFile( mapname ) )
+#endif
+    if( std::string mapname = fmt::format( "../../test/{}.json", "test" ); LoadJsonFile( mapname ) )
     {
         std::cout << "Got a custom config for map " << mapname << std::endl;
     }
-#endif
 }
 
 SectionContext* CConfigContext::GetContext( std::string_view name )
@@ -60,17 +57,13 @@ SectionContext* CConfigContext::GetContext( std::string_view name )
 bool CConfigContext::LoadJsonFile( const std::string& filename )
 {
     // Yo si usaria FileSystem
-#if 0
     std::ifstream file( filename );
 
     if( !file.is_open() )
         return false;
-#endif
 
     json config;
-#if 0
     file >> config;
-#endif
 
     for( const auto& section : config.items() )
     {

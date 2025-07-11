@@ -9,6 +9,8 @@
 #include <vector>
 #include <variant>
 
+#include <fmt/core.h>
+
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
