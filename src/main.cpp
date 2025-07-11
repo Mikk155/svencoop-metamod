@@ -2,7 +2,7 @@
 
 extern "C" __declspec(dllexport) void main()
 {
-    for( CBasePlugin* plugin : CBasePlugin::GetPlugins() )
+    for( CBasePlugin* plugin : PLUGINS() )
     {
         g_ConfigurationContext.CreateContext( plugin->GetName() );
         plugin->OnInitialize();
@@ -10,7 +10,7 @@ extern "C" __declspec(dllexport) void main()
 
     g_ConfigurationContext.OnMapInit();
 
-    for( CBasePlugin* plugin : CBasePlugin::GetPlugins() ) {
+    for( CBasePlugin* plugin : PLUGINS() ) {
         // How to create a macro to pass only the function name and possible args?
         if( plugin->IsActive() )
             plugin->OnMapInit();

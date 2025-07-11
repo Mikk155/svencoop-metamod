@@ -96,6 +96,13 @@
         "xlocmes": "cpp",
         "xloctime": "cpp",
         "xmemory": "cpp",
-        "xstddef": "cpp"
+        "xstddef": "cpp",
+        "bitset": "cpp",
+        "cfenv": "cpp",
+        "condition_variable": "cpp",
+        "shared_mutex": "cpp",
+        "source_location": "cpp",
+        "stack": "cpp",
+        "typeindex": "cpp"
     }
 }

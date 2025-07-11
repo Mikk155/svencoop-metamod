@@ -49,33 +49,71 @@ class CBasePlugin
 public:
     CBasePlugin() = default;
 
+    /**
+    *   @brief Must be a unique name. This is used for the json configuration context.
+    */
     virtual const char* GetName() = 0;
 
-    virtual void OnInitialize() {};
-    virtual void OnMapInit() {};
+    /**
+    *   @brief Called when the plugin has just been initialized
+    */
+    virtual void OnInitialize() {
+        fmt::print( "{}::OnInitialize", GetName() );
+    };
 
-    SectionContext* GetConfig() {
-        return g_ConfigurationContext.GetContext( GetName() );
-    }
+    /**
+    *   @brief Called every time a map starts
+    */
+    virtual void OnMapInit() {
+        fmt::print( "{}::OnMapInit", GetName() );
+    };
 
-    bool IsActive() {
-        return GetConfig()->IsActive;
-    }
+    /**
+    *   @brief Get the config context for this plugin
+    */
+    SectionContext* GetConfig();
 
-    static void __Register__( CBasePlugin* plugin ) {
-        Plugins().push_back( plugin );
-    }
+    /**
+    *   @brief Return whatever this plugin is active on this map
+    */
+    const bool IsActive();
 
-    static const std::vector<CBasePlugin*>& GetPlugins() {
-        return Plugins();
-    }
+    static void __Register__( CBasePlugin* plugin );
+
+    static const std::vector<CBasePlugin*>& __GetPlugins__() {
+        return __Plugins__();
+    };
 
 private:
-    static std::vector<CBasePlugin*>& Plugins() {
+    static std::vector<CBasePlugin*>& __Plugins__() {
         static std::vector<CBasePlugin*> reg;
         return reg;
     }
 };
 
+/**
+*   @brief Get a list of all plugins
+*/
+inline static const std::vector<CBasePlugin*>& PLUGINS() {
+    return CBasePlugin::__GetPlugins__();
+}
+
+/**
+*   @brief Get a plugin by name
+*/
+inline static const CBasePlugin* PLUGIN( std::string_view name )
+{
+    const std::vector<CBasePlugin*>& plugins = PLUGINS();
+
+    if( auto it = std::find_if( plugins.begin(), plugins.end(), [&]( CBasePlugin* context )
+        { return std::string_view( context->GetName() ) == name; } ); it != plugins.end() ) {
+            return *it;
+    }
+    return nullptr;
+}
+
+/**
+*   @brief Register a class based on CBasePlugin
+*/
 #define REGISTER_PLUGIN( CLASS ) static CLASS _##CLASS##_instance; static struct CLASS##_reg { \
     CLASS##_reg() { CBasePlugin::__Register__(&_##CLASS##_instance); } } _##CLASS##_reg_stancein;

@@ -1,6 +1,5 @@
+//-TODO Game's FileSystem
 #include <fstream>
-#include <iostream>
-#include <sstream>
 
 #include "main.hpp"
 
@@ -11,13 +10,13 @@ void CConfigContext::CreateContext( const char* name )
 
     if( it != m_contexts.end() )
     {
-        std::cout << "Plugin tried to register a existent config context with name " << name << std::endl;
+        fmt::print( "Plugin tried to register a existent config context with name \"{}\"", name );
         return;
     }
 
     SectionContext PluginContext = SectionContext( name );
 
-    std::cout << "Registered section context for " << name << std::endl;
+    fmt::print( "Registered section context for \"{}\"", name );
 
     m_contexts.push_back( std::move( PluginContext ) );
 }
@@ -26,7 +25,7 @@ void CConfigContext::OnMapInit()
 {
     if( !LoadJsonFile( "../../lp_configuration.json" ) )
     {
-        std::cout << "Failed to read the main config file." << std::endl;
+        fmt::print( "Failed to read the main config file." );
         return;
     }
 
@@ -35,7 +34,7 @@ void CConfigContext::OnMapInit()
 #endif
     if( std::string mapname = fmt::format( "../../test/{}.json", "test" ); LoadJsonFile( mapname ) )
     {
-        std::cout << "Got a custom config for map " << mapname << std::endl;
+        fmt::print( "Got a custom config for map \"{}\"", mapname );
     }
 }
 
@@ -49,7 +48,7 @@ SectionContext* CConfigContext::GetContext( std::string_view name )
         return &(*it);
     }
 
-    std::cout << "Unexistent context name " << name << std::endl;
+    fmt::print( "Unexistent context name \"{}\"", name );
 
     return nullptr;
 }
@@ -73,7 +72,7 @@ bool CConfigContext::LoadJsonFile( const std::string& filename )
 
         if( !ContextData.is_object() )
         {
-            std::cout << "Expected object type for context name " << ContextName << std::endl;
+            fmt::print( "Expected object type for context name ", ContextName );
             continue;
         }
 
@@ -81,20 +80,13 @@ bool CConfigContext::LoadJsonFile( const std::string& filename )
 
         if( ContextSection == nullptr )
         {
-            std::cout << "Unknown context section " << ContextName << std::endl;
+            fmt::print( "Unknown context section ", ContextName );
             continue;
         }
 
         ContextSection->IsActive = ContextData.value( "active", false );
 
-        if( ContextSection->IsActive )
-        {
-            std::cout << "Context " << ContextName << " Is active" << std::endl;
-        }
-        else
-        {
-            std::cout << "Context " << ContextName << " Is disabled" << std::endl;
-        }
+        fmt::print( "Context is ", ContextSection->IsActive ? "Active" : "Disabled" );
     }
 
     return true;
