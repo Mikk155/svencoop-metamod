@@ -5,16 +5,19 @@ set( CMAKE_CXX_STANDARD 17 )
 
 add_subdirectory( src/json )
 
-#include_directories( src/metamod-p )
+include_directories(
+    ${CMAKE_SOURCE_DIR}/src/metamodp/hlsdk/common
+    ${CMAKE_SOURCE_DIR}/src/metamodp/hlsdk/engine
+    ${CMAKE_SOURCE_DIR}/src/metamodp/hlsdk/dlls
+    ${CMAKE_SOURCE_DIR}/src/metamodp/hlsdk/pm_shared
+)
 
-add_executable( LimitlessPotential
-    src/CConfigContext.cpp
-    src/CConfigContext.hpp
+add_library( ${PROJECT_NAME} SHARED
     src/main.cpp
-    src/placeholder.h
-    src/CBasePlugin.h
+    src/main.hpp
+    src/CConfigContext.cpp
 
     src/plugins/anticlip.cpp
 )
 
-target_link_libraries( LimitlessPotential nlohmann_json::nlohmann_json )
+target_link_libraries( ${PROJECT_NAME} PRIVATE nlohmann_json::nlohmann_json )

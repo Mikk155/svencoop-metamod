@@ -1,15 +1,7 @@
-#include "CConfigContext.hpp"
-#include "CBasePlugin.h"
-
-#include "placeholder.h"
-CEngine* gpGlobals;
+#include "main.hpp"
 
 int main()
 {
-    gpGlobals = new CEngine();
-
-    gpGlobals->mapname = string_t( "hl_c05_a1" );
-
     for( CBasePlugin* plugin : CBasePlugin::GetPlugins() )
     {
         g_ConfigurationContext.CreateContext( plugin->GetName() );

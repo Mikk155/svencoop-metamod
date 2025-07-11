@@ -1,4 +1,4 @@
-#include "../CBasePlugin.h"
+#include "../main.hpp"
 #include <iostream>
 
 class CPluginAntiClip : public CBasePlugin

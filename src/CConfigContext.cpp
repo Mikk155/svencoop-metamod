@@ -2,10 +2,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "CConfigContext.hpp"
-
-#include "placeholder.h"
-extern CEngine* gpGlobals;
+#include "main.hpp"
 
 void CConfigContext::CreateContext( const char* name )
 {
@@ -33,6 +30,7 @@ void CConfigContext::OnMapInit()
         return;
     }
 
+#if 0
     std::ostringstream oss;
 
     oss << "maps/" << STRING( gpGlobals->mapname ) << ".json";
@@ -41,6 +39,7 @@ void CConfigContext::OnMapInit()
     {
         std::cout << "Got a custom config for map " << mapname << std::endl;
     }
+#endif
 }
 
 SectionContext* CConfigContext::GetContext( std::string_view name )
@@ -61,13 +60,17 @@ SectionContext* CConfigContext::GetContext( std::string_view name )
 bool CConfigContext::LoadJsonFile( const std::string& filename )
 {
     // Yo si usaria FileSystem
+#if 0
     std::ifstream file( filename );
 
     if( !file.is_open() )
         return false;
+#endif
 
     json config;
+#if 0
     file >> config;
+#endif
 
     for( const auto& section : config.items() )
     {
