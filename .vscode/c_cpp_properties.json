@@ -1,0 +1,20 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/src/json/include",
+                "${workspaceFolder}/src/fmt/include"
+            ],
+            "defines": [
+                "_DEBUG",
+            ],
+            "windowsSdkVersion": "10.0.19041.0",
+            "compilerPath": "cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}
