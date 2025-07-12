@@ -1,13 +1,18 @@
 {
     "files.exclude":
     {
-        "build/**": true
+        "build/**": true,
+        "src/fmt/**": true,
+        "src/json/**": true
     },
 
     "search.exclude":
     {
-        "build/**": true
+        "build/**": true,
+        "src/fmt/**": true,
+        "src/json/**": true
     },
+
     "files.associations": {
         "*.json": "jsonc",
         "xstring": "cpp",
