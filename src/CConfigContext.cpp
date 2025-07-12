@@ -10,13 +10,13 @@ void CConfigContext::CreateContext( const char* name )
 
     if( it != m_contexts.end() )
     {
-        fmt::print( "Plugin tried to register a existent config context with name \"{}\"", name );
+        fmt::print( "Plugin tried to register a existent config context with name \"{}\"\n", name );
         return;
     }
 
     SectionContext PluginContext = SectionContext( name );
 
-    fmt::print( "Registered section context for \"{}\"", name );
+    fmt::print( "Registered section context for \"{}\"\n", name );
 
     m_contexts.push_back( std::move( PluginContext ) );
 }
@@ -25,7 +25,7 @@ void CConfigContext::OnMapInit()
 {
     if( !LoadJsonFile( "../../lp_configuration.json" ) )
     {
-        fmt::print( "Failed to read the main config file." );
+        fmt::print( "Failed to read the main config file.\n" );
         return;
     }
 
@@ -34,7 +34,7 @@ void CConfigContext::OnMapInit()
 #endif
     if( std::string mapname = fmt::format( "../../test/{}.json", "test" ); LoadJsonFile( mapname ) )
     {
-        fmt::print( "Got a custom config for map \"{}\"", mapname );
+        fmt::print( "Got a custom config for map \"{}\"\n", mapname );
     }
 }
 
@@ -48,7 +48,7 @@ SectionContext* CConfigContext::GetContext( std::string_view name )
         return &(*it);
     }
 
-    fmt::print( "Unexistent context name \"{}\"", name );
+    fmt::print( "Unexistent context name \"{}\"\n", name );
 
     return nullptr;
 }
@@ -72,7 +72,7 @@ bool CConfigContext::LoadJsonFile( const std::string& filename )
 
         if( !ContextData.is_object() )
         {
-            fmt::print( "Expected object type for context name ", ContextName );
+            fmt::print( "Expected object type for context name {}\n", ContextName );
             continue;
         }
 
@@ -80,13 +80,13 @@ bool CConfigContext::LoadJsonFile( const std::string& filename )
 
         if( ContextSection == nullptr )
         {
-            fmt::print( "Unknown context section ", ContextName );
+            fmt::print( "Unknown context section {}\n", ContextName );
             continue;
         }
 
         ContextSection->IsActive = ContextData.value( "active", false );
 
-        fmt::print( "Context is ", ContextSection->IsActive ? "Active" : "Disabled" );
+        fmt::print( "Context is {} \n", ContextSection->IsActive ? "Active" : "Disabled" );
     }
 
     return true;

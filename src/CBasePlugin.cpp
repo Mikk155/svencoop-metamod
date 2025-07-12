@@ -18,7 +18,7 @@ void CBasePlugin::__Register__( CBasePlugin* plugin )
     }
     else
     {
-        fmt::print( "Already registered a plugin with name {}", plugin->GetName() );
+        fmt::print( "Already registered a plugin with name {}\n", plugin->GetName() );
         delete plugin;
     }
 }

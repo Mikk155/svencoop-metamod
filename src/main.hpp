@@ -58,14 +58,14 @@ public:
     *   @brief Called when the plugin has just been initialized
     */
     virtual void OnInitialize() {
-        fmt::print( "{}::OnInitialize", GetName() );
+        fmt::print( "{}::OnInitialize\n", GetName() );
     };
 
     /**
     *   @brief Called every time a map starts
     */
     virtual void OnMapInit() {
-        fmt::print( "{}::OnMapInit", GetName() );
+        fmt::print( "{}::OnMapInit\n", GetName() );
     };
 
     /**
