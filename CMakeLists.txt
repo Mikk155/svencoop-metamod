@@ -36,3 +36,15 @@ target_link_libraries( ${PROJECT_NAME} PRIVATE fmt )
 
 # Testing stuff
 add_executable( TestPluginLoader test/main.cpp )
+
+set( DLL_OUTPUT "" CACHE PATH "Binary path")
+
+if( DLL_OUTPUT )
+    add_custom_command( TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E echo "Installing ${DLL_OUTPUT}/$<TARGET_FILE_NAME:${PROJECT_NAME}>"
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${DLL_OUTPUT}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_FILE:${PROJECT_NAME}>
+        ${DLL_OUTPUT}/$<TARGET_FILE_NAME:${PROJECT_NAME}>
+    )
+endif()

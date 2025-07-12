@@ -1,9 +1,5 @@
 @echo off
 
-cmake --build build --config Debug
-
-cd build
-cd Debug
-TestPluginLoader.exe
+cmake --build build --config Release
 
 pause
