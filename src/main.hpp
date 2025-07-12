@@ -75,34 +75,29 @@ public:
     const bool IsActive();
 };
 
-class CPluginManager : public CBasePlugin
+class CPluginManager
 {
-    public:
+public:
 
-        const char* GetName() override {
-            return "plugin_manager";
-        };
+    void __Register__( CBasePlugin* plugin );
 
-        void __Register__( CBasePlugin* plugin );
+    /**
+    *   @brief Get a list of all plugins
+    */
+    const std::vector<CBasePlugin*>& GetPlugins() {
+        return m_Plugins;
+    };
 
-        /**
-        *   @brief Get a list of all plugins
-        */
-        const std::vector<CBasePlugin*>& GetPlugins() {
-            return m_Plugins;
-        };
+    /**
+    *   @brief Get a plugin by name
+    */
+    CBasePlugin* GetPlugin( std::string_view name );
 
-        /**
-        *   @brief Get a plugin by name
-        */
-        CBasePlugin* GetPlugin( std::string_view name );
+    void OnInitialize();
 
-    void OnInitialize() override;
-    void OnMapInit() override;
+private:
 
-    private:
-
-        std::vector<CBasePlugin*> m_Plugins;
+    std::vector<CBasePlugin*> m_Plugins;
 };
 
 inline CPluginManager g_PluginManager;
@@ -112,3 +107,9 @@ inline CPluginManager g_PluginManager;
 */
 #define REGISTER_PLUGIN( CLASS ) static CLASS _##CLASS##_instance; static struct CLASS##_reg { \
     CLASS##_reg() { g_PluginManager.__Register__(&_##CLASS##_instance); } } _##CLASS##_reg_stancein;
+
+#define CALL_FUNCTION( fnName, ... ) do { \
+    for( CBasePlugin* plugin : g_PluginManager.GetPlugins() ) { \
+        fmt::print( "{}::" #fnName "\n", plugin->GetName() ); \
+        plugin->fnName( __VA_ARGS__ ); \
+    } } while(false)

@@ -27,18 +27,7 @@ void CPluginManager::OnInitialize()
     for( CBasePlugin* plugin : GetPlugins() )
     {
         g_ConfigurationContext.CreateContext( plugin->GetName() );
-        fmt::print( "{}::OnInitialize\n", GetName() );
-        plugin->OnInitialize();
-    }
-}
-
-void CPluginManager::OnMapInit()
-{
-    g_ConfigurationContext.OnMapInit();
-
-    for( CBasePlugin* plugin : GetPlugins() )
-    {
-        fmt::print( "{}::OnMapInit\n", GetName() );
+        fmt::print( "{}::OnInitialize\n", plugin->GetName() );
         plugin->OnInitialize();
     }
 }
