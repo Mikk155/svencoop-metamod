@@ -7,5 +7,6 @@ git submodule update --init --recursive
 mkdir build
 cd build
 cmake ..
-cmake --build . --config Debug
+cd ..
+cmake --build build --config Release
 ```
