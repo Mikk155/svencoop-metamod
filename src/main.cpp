@@ -2,17 +2,6 @@
 
 extern "C" __declspec(dllexport) void main()
 {
-    for( CBasePlugin* plugin : PLUGINS() )
-    {
-        g_ConfigurationContext.CreateContext( plugin->GetName() );
-        plugin->OnInitialize();
-    }
-
-    g_ConfigurationContext.OnMapInit();
-
-    for( CBasePlugin* plugin : PLUGINS() ) {
-        // How to create a macro to pass only the function name and possible args?
-        if( plugin->IsActive() )
-            plugin->OnMapInit();
-    }
+    g_PluginManager.OnInitialize();
+    g_PluginManager.OnMapInit();
 }

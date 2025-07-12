@@ -18,6 +18,7 @@ add_library( ${PROJECT_NAME} SHARED
     src/main.hpp
     src/CBasePlugin.cpp
     src/CConfigContext.cpp
+    src/CPluginManager.cpp
 
     src/plugins/anticlip.cpp
 )

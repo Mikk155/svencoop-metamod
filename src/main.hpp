@@ -57,16 +57,12 @@ public:
     /**
     *   @brief Called when the plugin has just been initialized
     */
-    virtual void OnInitialize() {
-        fmt::print( "{}::OnInitialize\n", GetName() );
-    };
+    virtual void OnInitialize() {};
 
     /**
     *   @brief Called every time a map starts
     */
-    virtual void OnMapInit() {
-        fmt::print( "{}::OnMapInit\n", GetName() );
-    };
+    virtual void OnMapInit() {};
 
     /**
     *   @brief Get the config context for this plugin
@@ -77,43 +73,42 @@ public:
     *   @brief Return whatever this plugin is active on this map
     */
     const bool IsActive();
-
-    static void __Register__( CBasePlugin* plugin );
-
-    static const std::vector<CBasePlugin*>& __GetPlugins__() {
-        return __Plugins__();
-    };
-
-private:
-    static std::vector<CBasePlugin*>& __Plugins__() {
-        static std::vector<CBasePlugin*> reg;
-        return reg;
-    }
 };
 
-/**
-*   @brief Get a list of all plugins
-*/
-inline static const std::vector<CBasePlugin*>& PLUGINS() {
-    return CBasePlugin::__GetPlugins__();
-}
-
-/**
-*   @brief Get a plugin by name
-*/
-inline static const CBasePlugin* PLUGIN( std::string_view name )
+class CPluginManager : public CBasePlugin
 {
-    const std::vector<CBasePlugin*>& plugins = PLUGINS();
+    public:
 
-    if( auto it = std::find_if( plugins.begin(), plugins.end(), [&]( CBasePlugin* context )
-        { return std::string_view( context->GetName() ) == name; } ); it != plugins.end() ) {
-            return *it;
-    }
-    return nullptr;
-}
+        const char* GetName() override {
+            return "plugin_manager";
+        };
+
+        void __Register__( CBasePlugin* plugin );
+
+        /**
+        *   @brief Get a list of all plugins
+        */
+        const std::vector<CBasePlugin*>& GetPlugins() {
+            return m_Plugins;
+        };
+
+        /**
+        *   @brief Get a plugin by name
+        */
+        CBasePlugin* GetPlugin( std::string_view name );
+
+    void OnInitialize() override;
+    void OnMapInit() override;
+
+    private:
+
+        std::vector<CBasePlugin*> m_Plugins;
+};
+
+inline CPluginManager g_PluginManager;
 
 /**
 *   @brief Register a class based on CBasePlugin
 */
 #define REGISTER_PLUGIN( CLASS ) static CLASS _##CLASS##_instance; static struct CLASS##_reg { \
-    CLASS##_reg() { CBasePlugin::__Register__(&_##CLASS##_instance); } } _##CLASS##_reg_stancein;
+    CLASS##_reg() { g_PluginManager.__Register__(&_##CLASS##_instance); } } _##CLASS##_reg_stancein;
