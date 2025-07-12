@@ -6,7 +6,14 @@ set( CMAKE_CXX_STANDARD 17 )
 add_subdirectory( src/json )
 add_subdirectory( src/fmt )
 
+# Maybe i should just fork metamod-p?
+if( MSVC )
+    add_compile_options( /wd4311 )
+    add_compile_options( /wd4005 )
+endif()
+
 include_directories(
+    ${CMAKE_SOURCE_DIR}/src/metamodp/metamod
     ${CMAKE_SOURCE_DIR}/src/metamodp/hlsdk/common
     ${CMAKE_SOURCE_DIR}/src/metamodp/hlsdk/engine
     ${CMAKE_SOURCE_DIR}/src/metamodp/hlsdk/dlls
@@ -14,6 +21,7 @@ include_directories(
 )
 
 add_library( ${PROJECT_NAME} SHARED
+    src/meta_api.cpp
     src/main.cpp
     src/main.hpp
     src/CBasePlugin.cpp
