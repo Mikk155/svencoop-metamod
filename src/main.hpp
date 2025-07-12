@@ -44,6 +44,15 @@ private:
 
 inline CConfigContext g_ConfigurationContext;
 
+enum HookCode : int
+{
+    // Continue hook execution
+    Continue = 0,
+
+    // Break the iteration and stop calling other classes on this pugin
+    Break
+};
+
 class CBasePlugin
 {
 public:
@@ -62,7 +71,7 @@ public:
     /**
     *   @brief Called every time a map starts
     */
-    virtual void OnMapInit() {};
+    virtual HookCode OnMapInit() { return HookCode::Continue; };
 
     /**
     *   @brief Get the config context for this plugin
@@ -111,5 +120,6 @@ inline CPluginManager g_PluginManager;
 #define CALL_FUNCTION( fnName, ... ) do { \
     for( CBasePlugin* plugin : g_PluginManager.GetPlugins() ) { \
         fmt::print( "{}::" #fnName "\n", plugin->GetName() ); \
-        plugin->fnName( __VA_ARGS__ ); \
+        HookCode code = plugin->fnName( __VA_ARGS__ ); \
+        if( code == HookCode::Break ) { break; } \
     } } while(false)
