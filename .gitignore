@@ -8,3 +8,4 @@ build-cmake/*
 build/addons/metamod/dlls/*
 thirdparty/build/*
 thirdparty/install/*
+/out/build/x64-Debug
