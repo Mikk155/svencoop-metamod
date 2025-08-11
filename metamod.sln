@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1800
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36401.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "metamod", "metamod\metamod.vcxproj", "{02832A39-E902-46B7-8D47-911C37CF41B0}"
 EndProject
@@ -23,6 +23,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "asqcvar", "asqcvar\asqcvar.
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "asusermsg", "asusermsg\asusermsg.vcxproj", "{B3CA76F7-55CF-4402-9DB6-93B0D3751DCA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aslp", "aslp\aslp.vcxproj", "{39DEC113-04AF-4014-9A48-1A9FF1F03300}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,6 +70,14 @@ Global
 		{B3CA76F7-55CF-4402-9DB6-93B0D3751DCA}.Release|Win32.ActiveCfg = Release|Win32
 		{B3CA76F7-55CF-4402-9DB6-93B0D3751DCA}.Release|Win32.Build.0 = Release|Win32
 		{B3CA76F7-55CF-4402-9DB6-93B0D3751DCA}.Release|x64.ActiveCfg = Release|Win32
+		{39DEC113-04AF-4014-9A48-1A9FF1F03300}.Debug|Win32.ActiveCfg = Debug|Win32
+		{39DEC113-04AF-4014-9A48-1A9FF1F03300}.Debug|Win32.Build.0 = Debug|Win32
+		{39DEC113-04AF-4014-9A48-1A9FF1F03300}.Debug|x64.ActiveCfg = Debug|Win32
+		{39DEC113-04AF-4014-9A48-1A9FF1F03300}.Debug|x64.Build.0 = Debug|Win32
+		{39DEC113-04AF-4014-9A48-1A9FF1F03300}.Release|Win32.ActiveCfg = Release|Win32
+		{39DEC113-04AF-4014-9A48-1A9FF1F03300}.Release|Win32.Build.0 = Release|Win32
+		{39DEC113-04AF-4014-9A48-1A9FF1F03300}.Release|x64.ActiveCfg = Release|Win32
+		{39DEC113-04AF-4014-9A48-1A9FF1F03300}.Release|x64.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

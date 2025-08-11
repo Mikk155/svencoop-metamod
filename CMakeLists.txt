@@ -137,14 +137,16 @@ add_subdirectory(fallguys)
 add_subdirectory(ascurl)
 add_subdirectory(asqcvar)
 add_subdirectory(asusermsg)
+add_subdirectory(aslp)
 
 # 设置项目依赖关系
 add_dependencies(fallguys asext)
 add_dependencies(ascurl asext)
 add_dependencies(asqcvar asext)
+add_dependencies(aslp asext)
 
 # 安装目标
-install(TARGETS metamod asext fallguys ascurl asqcvar asusermsg
+install(TARGETS metamod asext fallguys ascurl asqcvar asusermsg aslp
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib
